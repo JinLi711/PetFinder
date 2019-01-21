@@ -279,3 +279,110 @@ def generate_word_clouds(text, title):
     plt.imshow(wordcloud)
     plt.title(title)
     plt.axis("off")
+
+
+#======================================================================
+# Visualizing Tabular Data With Respect To Labels
+#======================================================================
+
+
+def prepare_plot_dict(df, col, main_count):
+    """
+    Source: https://www.kaggle.com/artgor/exploration-of-data-step-by-step
+
+    Preparing dictionary with data for plotting.
+    Sshow how much higher/lower are the rates of Adoption speed 
+    for the current column comparing to base values),
+    Calculate base rates, then for each category in the column,
+    calculate rates of Adoption speed and find difference with the base rates.
+
+    :param df: Pandas dataframe
+    :type  df: pandas.core.frame.DataFrame
+    :param col: Column name to consider
+    :type  col: str
+    :param main_count: Initial starting count values for adoption speed
+    :type  main_count: pandas.core.series.Series
+    :returns: dictionary mapping a category to its comparison rate
+    :rtype:   dict
+    """
+
+    main_count = dict(main_count)
+    plot_dict = {}
+    for i in df[col].unique():
+        val_count = dict(
+            df.loc[df[col] == i, 'AdoptionSpeed'].value_counts().sort_index())
+
+        for k, v in main_count.items():
+            if k in val_count:
+                plot_dict[val_count[k]] = \
+                    ((val_count[k] / sum(val_count.values())) /
+                     main_count[k]) * 100 - 100
+            else:
+                plot_dict[0] = 0
+
+    return plot_dict
+
+
+def make_count_plot(
+        df,
+        x,
+        hue='AdoptionSpeed',
+        title='',
+        main_count=None):
+    """
+    Source: https://www.kaggle.com/artgor/exploration-of-data-step-by-step
+
+    Plotting countplot with correct annotations.
+
+    :param df: Pandas dataframe
+    :type  df: pandas.core.frame.DataFrame
+    :param x: Column name to consider
+    :type  x: str
+    :param hue: Name of the label
+    :type  hue: str
+    :param title: title of the plot
+    :type  title: str
+    :param main_count: Initial starting count values for adoption speed
+    :type  main_count: pandas.core.series.Series
+    """
+
+    g = sns.countplot(x=x, data=df, hue=hue)
+    plt.title(f'AdoptionSpeed {title}')
+    ax = g.axes
+
+    plot_dict = prepare_plot_dict(df, x, main_count)
+
+    for p in ax.patches:
+        h = p.get_height() if str(p.get_height()) != 'nan' else 0
+        text = f"{plot_dict[h]:.0f}%" if plot_dict[h] < 0 else f"+{plot_dict[h]:.0f}%"
+        ax.annotate(
+            text,
+            (p.get_x() + p.get_width() / 2., h),
+            ha='center',
+            va='center',
+            fontsize=11,
+            color='green' if plot_dict[h] > 0 else 'red',
+            rotation=0,
+            xytext=(0, 10),
+            textcoords='offset points'
+        )
+
+    
+def create_label_plots(df, categories, main_count):
+    """
+    Create plots to compare adoption speed with respect to a feature.
+    
+    :param df: Pandas dataframe
+    :type  df: pandas.core.frame.DataFrame
+    :param categories: List 
+    :type  categories: list
+    """
+    
+    for category in categories:
+        plt.figure(figsize=(28, 18))
+        make_count_plot(
+            df=df, 
+            x=category, 
+            title='by pet {}'.format(category),
+            main_count=main_count
+        )
