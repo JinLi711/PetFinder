@@ -33,6 +33,7 @@ ND - Decided not to do this
 # Step 6: Final Adjustments 
 
 | Progress | Date Finished | Task  
+|----------|---------------|-----
 | NW | NAN | Create requirements.txt
 | NW | NAN | Create directory tree.
 | NW | NAN | Remove warnings.
