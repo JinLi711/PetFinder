@@ -5,7 +5,9 @@ This file contains functions to help visualize the data.
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+from PIL import Image
 from wordcloud import WordCloud
+import os
 
 
 #======================================================================
@@ -386,3 +388,53 @@ def create_label_plots(df, categories, main_count):
             title='by pet {}'.format(category),
             main_count=main_count
         )
+
+
+#======================================================================
+# Visualizing Images
+#======================================================================
+
+
+train_dir = '../data/train_images/'
+images = [i.split('-')[0] for i in os.listdir(train_dir)]
+
+
+def show_images(data, trait1, trait2, images=images, train_dir=train_dir):
+    """
+    Show images with certain traits for both cats and dogs
+
+    :param data: Pandas dataframe
+    :type  data: pandas.core.frame.DataFrame
+    :param trait1: category name of dataframe
+    :type  trait1: str
+    :param trait2: category name of dataframe
+    :type  trait2: str
+    :param images: list of image paths
+    :type  images: list
+    :param train_dir: train path
+    :type  train_dir: str
+    """
+
+    # just cats and dogs
+    for t in data['Type'].unique():
+        for m in data[trait1].unique():
+            df = data.loc[(data['Type'] == t) & (data[trait1] == m)]
+            top = list(df[trait2].value_counts().index)[:5]
+            print(f"Most common Breeds of {m} {t}s: (considering {trait2})")
+
+            fig = plt.figure(figsize=(25, 4))
+
+            for i, breed in enumerate(top):
+                # excluding pets without pictures
+                b_df = df.loc[(df[trait2] == breed) & (
+                    df['PetID'].isin(images)), 'PetID']
+                if len(b_df) > 1:
+                    pet_id = b_df.values[1]
+                else:
+                    pet_id = b_df.values[0]
+                ax = fig.add_subplot(1, 5, i+1, xticks=[], yticks=[])
+
+                im = Image.open(train_dir + pet_id + '-1.jpg')
+                plt.imshow(im)
+                ax.set_title(f'Breed: {breed}')
+            plt.show()
