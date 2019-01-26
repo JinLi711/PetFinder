@@ -22,11 +22,35 @@ ND - Decided not to do this
 | C        | 1/21/2019     | Create histograms for labels and other categorical features.
 | NW | NAN | Visually compare whether images match the descriptions.
 | C        | 1/21/2019     | Create wordclouds for text (and pet names).
+| C        | 1/21/2019     | Create bar graphs to show relations between features and labels.
+| C        | 1/25/2019     | Visualize some images from the train set.
+| C        | 1/25/2019     | Visualize some results from GCP analysis (sentiment on descriptions and metadata from images)
 | ND | NAN | Create heat maps for correlations
 
 # Step 3: Preprocess
 
+| Progress | Date Finished | Task                  
+|----------|---------------|-----
+| C        | 1/26/2019     | Compress data to reduce memory.
+| NW | NAN | Get data and split into train and validate set.
+| NW | NAN | Split the label from the train data.
+| NW | NAN | Get the meta data from GCP results.
+| NW | NAN | Get images if an image is avaliable.
+| NW | NAN | Label whether image exists.
+| NW | NAN | Deal with missing values
+| NW | NAN | Deal with values that do not make sense.
+| NW | NAN | Deal with outliers for numeric data.
+| NW | NAN | Standard scaler on numerics
+| NW | NAN | One hot encoding for categories.
+| NW | NAN | Get the test data.
+
 # Step 4: Model Building
+
+| Progress | Date Finished | Task                  
+|----------|---------------|-----
+| NW | NAN | Build a variation of a image segmentation algorithm.
+| NW | NAN | Build a RNN for text description to extract relevant information.
+
 
 # Step 5: Model Evaluation
 
