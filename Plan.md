@@ -26,15 +26,18 @@ ND - Decided not to do this
 | C        | 1/25/2019     | Visualize some images from the train set.
 | C        | 1/25/2019     | Visualize some results from GCP analysis (sentiment on descriptions and metadata from images)
 | ND | NAN | Create heat maps for correlations
+| C        | 1/30/2019     | Visualize the descriptions.
 
 # Step 3: Preprocess
 
 | Progress | Date Finished | Task                  
 |----------|---------------|-----
 | C        | 1/26/2019     | Compress data to reduce memory.
-| NW | NAN | Get data and split into train and validate set.
-| NW | NAN | Split the label from the train data.
-| NW | NAN | Get the meta data from GCP results.
+| C        | 1/27/2019     | Get data and split into train and validate set.
+| C        | 1/27/2019     | Split the label from the train data.
+| C        | 1/30/2019     | Import Stanford's GloVe.
+| C        | 1/30/2019     | Convert the words in the descriptions to vector representations.
+| ND | NAN | Get the meta data from GCP results.
 | NW | NAN | Get images if an image is avaliable.
 | NW | NAN | Label whether image exists.
 | NW | NAN | Deal with missing values
