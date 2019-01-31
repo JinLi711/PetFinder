@@ -8,6 +8,7 @@ import pandas as pd
 from PIL import Image
 from wordcloud import WordCloud
 import os
+import random
 
 
 #======================================================================
@@ -438,3 +439,48 @@ def show_images(data, trait1, trait2, images=images, train_dir=train_dir):
                 plt.imshow(im)
                 ax.set_title(f'Breed: {breed}')
             plt.show()
+
+
+#======================================================================
+# Visualizing Text
+#======================================================================
+
+
+def view_text(df, col_name, num=5):
+    """
+    View some of the text with some context
+
+    :param df: Pandas dataframe
+    :type  df: pandas.core.frame.DataFrame
+    :param col_name: name of the text column
+    :type  col_name: str
+    :param num: number of random posts to output
+    :type  num: int
+    """
+
+    text = df[col_name]
+
+    num_rows, num_cols = df.shape
+
+    print("Sample Text: \n")
+    for instance in range(num):
+        randint = random.randint(0, num_rows)
+        print(text[randint], '\n')
+
+
+def avg_post_len(text):
+    """
+    Find the average text length of text in a series
+
+    :param text: series of text
+    :type  text: pandas.core.series.Series
+    :returns: average text length
+    :rtype:   float
+    """
+
+    def split_str(x):
+        return str(x).split(' ')
+
+    avg_length = text.apply(lambda x: len(split_str(x))).mean()
+
+    return avg_length
