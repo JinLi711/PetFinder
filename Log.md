@@ -24,3 +24,13 @@ Decided its probably more efficient to describe my thoughts in this log, since I
   * How do I unittest visualizations?
   * Create classes even before creating visualizations.
   * Are there better places to put my observations other than in the python notebooks?
+
+# January 31, 2019
+
+**What I Could Have Done Better** 
+
+  * Get in the better habit in not using spaces.
+  * Get in the habit of using " " for strings and ' ' for characters.
+
+**Questions**
+  * How do I get images without loading everything at once? Turns out to be very tricky. Even trickier to deal with is the fact that one instance can have multiple images.
