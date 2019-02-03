@@ -304,19 +304,19 @@ def name_cat(data, col_name):
 
 def replace_values(data, col_names, before, after):
     """
-        For each appropriate column, 
-        replace a certain value with another.
+    For each appropriate column, 
+    replace a certain value with another.
 
-        :param data: dataframe
-        :type  data: pandas.core.frame.DataFrame
-        :param col_name: name of the column
-        :type  col_name: str 
-        :param before: anything to be replaced
-        :type  before: int, str
-        :param after: what it is replaced with
-        :type  after: int, str
-        :returns: dataframe
-        :rtype:   pandas.core.frame.DataFrame
+    :param data: dataframe
+    :type  data: pandas.core.frame.DataFrame
+    :param col_name: name of the column
+    :type  col_name: str 
+    :param before: anything to be replaced
+    :type  before: int, str
+    :param after: what it is replaced with
+    :type  after: int, str
+    :returns: dataframe
+    :rtype:   pandas.core.frame.DataFrame
     """
 
     df = data.copy()
@@ -471,3 +471,38 @@ def transform_df(df, cat_encode_type):
         raise ValueError("Not an available encoder type")
 
     return result, full_pipeline
+
+
+#======================================================================
+# Preprocess Image Data
+#======================================================================
+
+
+def link_to_images(df):
+    """
+    Duplicate the rows so each new row 
+    contains a different linked image 
+    (since each tabular instances linked 
+    to multiple images.)
+    If no image, drop the row.
+
+    :param df: dataframe
+    :type  df: pandas.core.frame.DataFrame
+    :returns: dataframe
+    :rtype:   pandas.core.frame.DataFrame
+    """
+
+    df['Img_Name'] = np.nan
+    columns = df.columns
+    new_df = pd.DataFrame(columns=columns)
+
+    df['Photo_Num'] = df['PetID'].apply(lambda x: vf.images.count(x))
+    for index, row in df.iterrows():
+        for i in range(1, row['Photo_Num'] + 1):
+            row['Img_Name'] = row['PetID'] + '-' + str(i) + ".jpg"
+            new_df = new_df.append(row, ignore_index=True)
+
+    new_df.drop(['PetID', 'Photo_Num'], axis=1, inplace=True)
+
+    # new_df.to_csv("../data/processed_data/train_processed.csv")
+    return new_df
