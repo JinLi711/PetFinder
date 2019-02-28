@@ -37,25 +37,30 @@ ND - Decided not to do this
 | C        | 1/27/2019     | Split the label from the train data.
 | C        | 1/30/2019     | Import Stanford's GloVe.
 | C        | 1/30/2019     | Convert the words in the descriptions to vector representations.
-| ND | NAN | Get the meta data from GCP results.
-| NW | NAN | Get images if an image is avaliable.
-| NW | NAN | Label whether image exists.
-| NW | NAN | Deal with missing values
-| NW | NAN | Deal with values that do not make sense.
-| NW | NAN | Deal with outliers for numeric data.
-| NW | NAN | Standard scaler on numerics
-| NW | NAN | One hot encoding for categories.
-| NW | NAN | Get the test data.
+| ND       | NAN | Get the meta data from GCP results.
+| ND       | NAN | Get images if an image is avaliable.
+| ND       | NAN           | Label whether image exists.
+| C        | 1/31/2019     | Deal with missing values
+| C        | 1/31/2019     | Deal with names category.
+| C        | 1/31/2019     | Deal with values that do not make sense.
+| C        | 1/31/2019     | Deal with outliers for numeric data.
+| C        | 1/31/2019     | Standard scaler on numerics
+| C        | 1/31/2019     | One hot encoding for categories.
+| C        | 1/31/2019     | Get the test data.
+| C        | 2/1/2019      | Duplicate rows so each row links to a different image.
+
 
 # Step 4: Model Building
 
 | Progress | Date Finished | Task                  
 |----------|---------------|-----
+| NW | NAN | Import everything from the preprocessed part.
 | NW | NAN | Build a variation of a image segmentation algorithm.
 | NW | NAN | Build a RNN for text description to extract relevant information.
 
 
 # Step 5: Model Evaluation
+
 
 # Step 6: Final Adjustments 
 
@@ -64,3 +69,4 @@ ND - Decided not to do this
 | NW | NAN | Create requirements.txt
 | NW | NAN | Create directory tree.
 | NW | NAN | Remove warnings.
+| NW | NAN | Improve documentations.

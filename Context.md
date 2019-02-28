@@ -10,6 +10,8 @@ PetFinder is an animal welfare platform that connects stray animals to families.
 
 Quoted from [here](https://www.kaggle.com/c/petfinder-adoption-prediction/data).
 
+**Note** A profile can represent a group of pets.
+
 ## Files
 
   * train.csv - Tabular/text data for the training set
